@@ -55,7 +55,7 @@ accelerate launch  --num_processes=1 --main_process_port=12346 -m lmms_eval \
 
 ```bash
 export MODEL_PATH="yuanqianhao/saisa-llama3"
-export MODEL_NAME="saisa_vicuna"
+export MODEL_NAME="saisa_llama3"
 export CONV_MODE="llama_3"
 accelerate launch  --num_processes=1 --main_process_port=12346 -m lmms_eval \
     --model llava \
