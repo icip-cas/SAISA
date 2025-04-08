@@ -1,6 +1,11 @@
 # SAISA
 Code release for "[SAISA: Towards Multimodal Large Language Models with Both Training and Inference Efficiency](https://arxiv.org/abs/2502.02458)"
 
+## TODO List
+- [x] Models.
+- [x] Evaluation pipeline.
+- [ ] Training pipeline.
+
 ## Install
 1. Clone this repository and navigate to SAISA folder
 ```bash
@@ -39,6 +44,19 @@ python -m llava.serve.cli \
 export MODEL_PATH="yuanqianhao/saisa-vicuna"
 export MODEL_NAME="saisa_vicuna"
 export CONV_MODE="v1"
+accelerate launch  --num_processes=1 --main_process_port=12346 -m lmms_eval \
+    --model llava \
+    --model_args pretrained=${MODEL_PATH},conv_template=${CONV_MODE}  \
+    --tasks mmmu_val \
+    --batch_size 1 \
+    --log_samples_suffix ${MODEL_NAME} \
+    --output_path ./logs/ 
+```
+
+```bash
+export MODEL_PATH="yuanqianhao/saisa-llama3"
+export MODEL_NAME="saisa_vicuna"
+export CONV_MODE="llama_3"
 accelerate launch  --num_processes=1 --main_process_port=12346 -m lmms_eval \
     --model llava \
     --model_args pretrained=${MODEL_PATH},conv_template=${CONV_MODE}  \

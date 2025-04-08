@@ -246,10 +246,7 @@ class Llava(lmms):
                 prompts_input = image_tokens + "\n" + (contexts[0] if isinstance(contexts, list) else contexts)
 
             # This is much safer for llama3, as we now have some object type in it
-            if "llama_3" in self.conv_template:
-                conv = copy.deepcopy(conv_templates[self.conv_template])
-            else:
-                conv = conv_templates[self.conv_template].copy()
+            conv = conv_templates[self.conv_template].copy()
             conv.append_message(conv.roles[0], prompts_input)
             conv.append_message(conv.roles[1], None)
             prompt = conv.get_prompt()
@@ -359,11 +356,7 @@ class Llava(lmms):
                     question = image_tokens + "\n" + context
                 else:
                     question = context
-                # This is much safer for llama3, as we now have some object type in it
-                if "llama_3" in self.conv_template:
-                    conv = copy.deepcopy(conv_templates[self.conv_template])
-                else:
-                    conv = conv_templates[self.conv_template].copy()
+                conv = conv_templates[self.conv_template].copy()
                 conv.append_message(conv.roles[0], question)
                 conv.append_message(conv.roles[1], None)
                 prompt_question = conv.get_prompt()
